@@ -11,13 +11,13 @@ header {
     width: 100%
 }
 
-#high-score-link {
+.high-score-link {
     position: absolute;
     top: 0px;
     left: 0px;
 }
 
-#timer {
+.timer {
     position: absolute;
     top: 0px;
     right: 0px
@@ -39,7 +39,7 @@ body p {
     width: 35%;
 }
 
-#start-quiz {
+.start-quiz {
     background-color: purple;
     color: white;
     width: 100px;
@@ -54,7 +54,7 @@ body p {
     margin-top: 5px;
 }
 
-#go-back {
+.go-back {
     background-color: purple;
     color: white;
     width: 90px;
@@ -64,7 +64,7 @@ body p {
     font-weight: 700;
 }
 
-#clear-highscores {
+.clear-highscores {
     background-color: purple;
     color: white;
     width: 150px;
@@ -74,3 +74,6 @@ body p {
     font-weight: 700;
 }
 
+h2 {
+    font-size: 16px;
+}
