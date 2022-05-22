@@ -1,14 +1,31 @@
 var goBackButton = document.querySelector(".go-back");
 var clearHighscoreButton = document.querySelector(".clear-highscores");
-var startQuizButton = document.querySelector(".start-quiz");
+var startButton = document.querySelector(".start-quiz");
 var timerEl = document.querySelector(".timer");
 
 var secondsLeft = 100;
 
+startButton.addEventListener("click", startGame);
+
+function startGame() {
+    console.log("Game has started");
+    setTimer();
+}
+
+
+function setNextQuestion() {
+
+}
+
+function selectAnswer() {
+
+}
+
+
 
 function setTimer() {
     var timerInterval = setInterval(function () {
-        startQuizButton.disabled = true;
+        startButton.disabled = true;
         secondsLeft--;
         timerEl.textContent = "Time: " + secondsLeft;
 
@@ -18,5 +35,3 @@ function setTimer() {
         }
     }, 1000);
 }
-
-startQuizButton.addEventListener("click", setTimer);
