@@ -3,7 +3,6 @@
 }
 
 header {
-    position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -11,16 +10,9 @@ header {
     width: 100%
 }
 
-.high-score-link {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-}
-
 .timer {
-    position: absolute;
-    top: 0px;
-    right: 0px
+    margin: 0px;
+    padding: 0;
 }
 
 .main-screen {
@@ -32,7 +24,7 @@ header {
     padding-top: 75px;
 }
 
-body p {
+main p {
     padding-bottom: 5px;
     margin-left: auto;
     margin-right: auto;
@@ -75,5 +67,34 @@ body p {
 }
 
 h2 {
+    font-size: 21px;
+}
+
+.hide {
+    display: none;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    display: block;
+    text-align: center;
+    padding-top: 75px;
+}
+
+.btn {
+    display: block;
+    background-color: purple;
+    color: white;
+    margin: 5px;
+    width: 150px;
+    height: 35px;
     font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#response {
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
