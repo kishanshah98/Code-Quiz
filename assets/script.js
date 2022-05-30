@@ -8,7 +8,57 @@ var questionElement = document.querySelector("#question");
 var answerButtonsElement = document.querySelector("#answer-buttons");
 var answerResponseElement = document.querySelector("#response");
 
+var score = 0;
 var qIndex = 0;
+
+var questions = [
+    {
+        text: "Which operation sign calculates the remainder?",
+        answerChoices: ["A: /", "B: *", "C: %", "D: $"],
+        correct: "C: %",
+    },
+    {
+        text: "Which of the following is a string?",
+        answerChoices: ["A: 'candy'", "B: true", "C: 54", "D: 10.5"],
+        correct: "A: 'candy'",
+    },
+    {
+        text: "Which programming language is specifically used for styling a page?",
+        answerChoices: ["A: Javascript", "B: CSS", "C: HTML", "D: Python"],
+        correct: "B: CSS",
+    },
+    {
+        text: "Which of the following respresents an 'And' symbol in If Statements?",
+        answerChoices: ["A: ||", "B: |", "C: &", "D: &&"],
+        correct: "D: &&",
+    },
+    {
+        text: "Out of the following HTML tags, which of the following is used to create a link?",
+        answerChoices: ["A: <p>", "B: <img>", "C: <br>", "D: <a>"],
+        correct: "D: <a>",
+    },
+    {
+        text: "Inside which HTML element do we put the JavaScript?",
+        answerChoices: ["A: <script>", "B: < scripting>", "C: <js>", "D: <javascript>"],
+        correct: "A: <script>",
+    }, {
+        text: "Which operator is used to assign a value to a variable?",
+        answerChoices: ["A: *", "B: =", "C: -", "D: x"],
+        correct: "B: =",
+    }, {
+        text: "Choose the correct HTML element for the largest heading.",
+        answerChoices: ["A: <h1>", "B: <h3>", "C: <head>", "D: <largeh>"],
+        correct: "A: <h1>"
+    }, {
+        text: "How can you make a bulleted list?",
+        answerChoices: ["A: <dl>", "B: <ol>", "C: <list>", "D: <ul>"],
+        correct: "D: <ul>",
+    }, {
+        text: "Which HTML element is used to specify a header for a document or section?",
+        answerChoices: ["A: <head>", "B: <section>", "C: <header>", "D: <top>"],
+        correct: "C: <header>",
+    }
+]
 
 init();
 
@@ -45,38 +95,48 @@ function startTimer() {
     }, 1000);
 }
 
-// Triggered if user guesses the correct answer
 function checkAnswer() {
-    console.log(this.innerText);
-    console.log(questions[qIndex].correct)
-    // Check Answer
     if (this.innerText === questions[qIndex].correct) {
-        answerResponseElement.textContent = "Correct";
+        answerResponseElement.textContent = "Great job! That is the correct answer!";
+        score += 1;
+        qIndex++;
+        console.log("Index number: " + qIndex);
+        console.log("Score: " + score);
     } else {
-        answerResponseElement.textContent = "Wrong answer";
+        answerResponseElement.textContent = "Oops, that's the wrong answer";
         secondsLeft = secondsLeft - 10;
+        qIndex++;
+        console.log("Index number: " + qIndex);
+        console.log("Score: " + score);
     }
-
-    //iterate index by 1
-    qIndex++
-
-    //check to see if you have questions left
-
-    //if no, stop quiz
-
-    //if yes, call renderNextQuestion
-
-
-}
-
-// Triggered if user guesses the wrong answer
-function wrongAnswer() {
-
+    // why is this below not working ??
+    if (qIndex <= questions.length) {
+        renderNextQuestion();
+        console.log("qIndex: " + qIndex);
+        console.log("question length: " + questions.length);
+    } else {
+        console.log("Game Over");
+        return;
+    }
+    // Need help figuring this out
 }
 
 // Updates high score on the screen in the list and in local storage
 function setHighScore() {
+    // create array of all scores
+    var scores = JSON.parse(localStorage.getItem('highscores')) || []
+    //when hits submit, save their score into an object
+    var newScore = {
+        highscore: score,
+        initials: initials,
+    }
 
+    //save that score into the array
+    //set array into local storage -> mske sure to stringify newScore
+}
+
+function populateHighScoreList () {
+    // store into a variable and loop throguh that array to populate high scores list
 }
 
 // Clears the list of high scores from screen and sets them into client storage
@@ -85,7 +145,7 @@ function clearScores() {
 }
 
 function renderNextQuestion() {
-    console.log(questions)
+    console.log(questions[qIndex]);
     questionElement.textContent = questions[qIndex].text;
     var option1El = document.querySelector("#option1");
     var option2El = document.querySelector("#option2");
@@ -102,53 +162,6 @@ function renderNextQuestion() {
 }
 
 
-//clearButton.addEventListener("click", clearScores);
+// clearButton.addEventListener("click", clearScores);
 
-var questions = [
-    {
-        text: "Which operation sign calculates the remainder?",
-        answerChoices: ["A: / ", "B: * ", "C: % ", "D: $ "],
-        correct: "C: % ",
-    },
-    {
-        text: "Which of the following is a string?",
-        answerChoices: ["A: 'candy' ", "B: true ", "C: 54 ", "D: 10.5 "],
-        correct: "A: 'candy' ",
-    },
-    {
-        text: "Which programming language is specifically used for styling a page?",
-        answerChoices: ["A: Javascript ", "B: CSS ", "C: HTML ", "D: Python "],
-        correct: "B: CSS ",
-    },
-    {
-        text: "Which of the following respresents an 'And' symbol in If Statements?",
-        answerChoices: ["A: || ", "B: | ", "C: & ", "D: && "],
-        correct: "D: && ",
-    },
-    {
-        text: "Out of the following HTML tags, which of the following is used to create a link?",
-        answerChoices: ["A: <p> ", "B: <img> ", "C: <br> ", "D: <a> "],
-        correct: "D: <a> ",
-    },
-    {
-        text: "Inside which HTML element do we put the JavaScript?",
-        answerChoices: ["A: <script> ", "B: < scripting> ", "C: <js> ", "D: <javascript> "],
-        correct: "A: <script> ",
-    }, {
-        text: "Which operator is used to assign a value to a variable?",
-        answerChoices: ["A: * ", "B: = ", "C: - ", "D: x "],
-        correct: "B: = ",
-    }, {
-        text: "Choose the correct HTML element for the largest heading.",
-        answerChoices: ["A: <h1> ", "B: <h3> ", "C: <head> ", "D: <largeh> "],
-        correct: "A: <h1> "
-    }, {
-        text: "How can you make a bulleted list?",
-        answerChoices: ["A: <dl> ", "B: <ol> ", "C: <list> ", "D: <ul> "],
-        correct: "D: <ul> ",
-    }, {
-        text: "Which HTML element is used to specify a header for a document or section?",
-        answerChoices: ["A: <head> ", "B: <section> ", "C: <header> ", "D: <top> "],
-        correct: "C: <header> "
-    }
-]
+
