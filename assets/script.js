@@ -3,12 +3,13 @@ var clearButton = document.querySelector(".clear-highscores");
 var startButton = document.querySelector(".start-quiz");
 var timerElement = document.querySelector(".timer");
 var mainScreenElement = document.querySelector(".main-screen")
-var questionContainerElement = document.querySelector("#question-container")
+var scoreLinkElement = document.querySelector(".highscore-link");
+var questionContainerElement = document.querySelector("#question-container");
 var questionElement = document.querySelector("#question");
 var answerButtonsElement = document.querySelector("#answer-buttons");
 var answerResponseElement = document.querySelector("#response");
 
-var score = 0;
+var scoreCount = 0;
 var qIndex = 0;
 
 var questions = [
@@ -58,7 +59,7 @@ var questions = [
         answerChoices: ["A: <head>", "B: <section>", "C: <header>", "D: <top>"],
         correct: "C: <header>",
     }
-]
+];
 
 init();
 
@@ -78,6 +79,7 @@ startButton.addEventListener("click", startGame);
 function startGame() {
     secondsLeft = 50;
     mainScreenElement.setAttribute("class", "hide");
+    scoreLinkElement.setAttribute("class", "inactiveLink");
     questionContainerElement.removeAttribute("class", "hide");
     startTimer();
     renderNextQuestion();
@@ -98,16 +100,16 @@ function startTimer() {
 function checkAnswer() {
     if (this.innerText === questions[qIndex].correct) {
         answerResponseElement.textContent = "Great job! That is the correct answer!";
-        score += 1;
+        scoreCount += 1;
         qIndex++;
         console.log("Index number: " + qIndex);
-        console.log("Score: " + score);
+        console.log("Score: " + scoreCount);
     } else {
         answerResponseElement.textContent = "Oops, that's the wrong answer";
         secondsLeft = secondsLeft - 10;
         qIndex++;
         console.log("Index number: " + qIndex);
-        console.log("Score: " + score);
+        console.log("Score: " + scoreCount);
     }
     // why is this below not working ??
     if (qIndex <= questions.length) {
@@ -116,24 +118,25 @@ function checkAnswer() {
         console.log("question length: " + questions.length);
     } else {
         console.log("Game Over");
-        return;
     }
     // Need help figuring this out
 }
 
 // Updates high score on the screen in the list and in local storage
 function setHighScore() {
-    // create array of all scores
-    var scores = JSON.parse(localStorage.getItem('highscores')) || []
-    //when hits submit, save their score into an object
+    var scoresArray = JSON.parse(localStorage.getItem('highscores')) || []
+
     var newScore = {
-        highscore: score,
-        initials: initials,
+        highscore: highscore.value,
+        initials: initials.value.trim(),
     }
+
+    localStorage.setItem("newScore", JSON.stringify(newScore));
 
     //save that score into the array
     //set array into local storage -> mske sure to stringify newScore
 }
+//key=intiails, value=score
 
 function populateHighScoreList () {
     // store into a variable and loop throguh that array to populate high scores list
