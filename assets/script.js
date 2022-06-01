@@ -1,5 +1,5 @@
+// Global variables created and assigned
 var goBackButton = document.querySelector(".go-back");
-var clearButton = document.querySelector(".clear-highscores");
 var startButton = document.querySelector(".start-quiz");
 var timerElement = document.querySelector(".timer");
 var mainScreenElement = document.querySelector(".main-screen")
@@ -8,10 +8,12 @@ var questionContainerElement = document.querySelector("#question-container");
 var questionElement = document.querySelector("#question");
 var answerButtonsElement = document.querySelector("#answer-buttons");
 var answerResponseElement = document.querySelector("#response");
+var submitButton = document.querySelector("#submit-button");
 
 var scoreCount = 0;
 var qIndex = 0;
 
+// List of questions asked in quiz
 var questions = [
     {
         text: "Which operation sign calculates the remainder?",
@@ -61,20 +63,15 @@ var questions = [
     }
 ];
 
-init();
+// Calls init function
+// init();
 
 // The first function being called to collect initial data for previous high scores
-function init() {
-    getHighScores();
-}
+// function init() {
+//     //getHighScores();
+// }
 
-// Retrives high scores from local storage
-function getHighScores() {
 
-}
-
-// Triggered when user presses the start button
-startButton.addEventListener("click", startGame);
 
 function startGame() {
     secondsLeft = 50;
@@ -85,18 +82,21 @@ function startGame() {
     renderNextQuestion();
 }
 
+// Creates and runs timer
 function startTimer() {
     var timerInterval = setInterval(function () {
         secondsLeft--;
         timerElement.textContent = "Time: " + secondsLeft;
 
-        if (secondsLeft === 0) {
+        if (secondsLeft <= 0) {
+            timerElement.textContent = "Time: 0";
             secondsLeft = 50
             clearInterval(timerInterval);
+            gameOver();
         }
     }, 1000);
 }
-
+// Checks if answer is right or not and rotates through all the questions
 function checkAnswer() {
     if (this.innerText === questions[qIndex].correct) {
         answerResponseElement.textContent = "Great job! That is the correct answer!";
@@ -111,41 +111,45 @@ function checkAnswer() {
         console.log("Index number: " + qIndex);
         console.log("Score: " + scoreCount);
     }
-    // why is this below not working ??
-    if (qIndex <= questions.length) {
+    if (qIndex < questions.length) {
         renderNextQuestion();
         console.log("qIndex: " + qIndex);
         console.log("question length: " + questions.length);
     } else {
+        gameOver();
         console.log("Game Over");
     }
-    // Need help figuring this out
 }
+
+function gameOver() {
+    questionContainerElement.setAttribute("class", "hide");
+
+    var gameOverElement = document.querySelector(".game-over-screen");
+    gameOverElement.removeAttribute("class", "hide");
+
+    var finalScoreEl = document.querySelector("#final-score");
+    finalScoreEl.textContent = scoreCount;
+
+    scoreLinkElement.removeAttribute("class", "inactiveLink");
+}
+
 
 // Updates high score on the screen in the list and in local storage
 function setHighScore() {
-    var scoresArray = JSON.parse(localStorage.getItem('highscores')) || []
+    var scoresArray = JSON.parse(localStorage.getItem('scoresArray')) || []
+    var initialsInput = document.querySelector("#initials");
 
     var newScore = {
-        highscore: highscore.value,
-        initials: initials.value.trim(),
+        highscore: scoreCount,
+        initials: initialsInput.value.trim(),
     }
 
-    localStorage.setItem("newScore", JSON.stringify(newScore));
+    scoresArray.push(newScore)
 
-    //save that score into the array
-    //set array into local storage -> mske sure to stringify newScore
-}
-//key=intiails, value=score
+    localStorage.setItem("scoresArray", JSON.stringify(scoresArray));
+    window.location.href = "./highscore.html";
+}   
 
-function populateHighScoreList () {
-    // store into a variable and loop throguh that array to populate high scores list
-}
-
-// Clears the list of high scores from screen and sets them into client storage
-function clearScores() {
-
-}
 
 function renderNextQuestion() {
     console.log(questions[qIndex]);
@@ -164,7 +168,9 @@ function renderNextQuestion() {
     option4El.addEventListener("click", checkAnswer);
 }
 
+submitButton.addEventListener("click", setHighScore);
 
 // clearButton.addEventListener("click", clearScores);
 
-
+// Triggered when user presses the start button
+startButton.addEventListener("click", startGame);
