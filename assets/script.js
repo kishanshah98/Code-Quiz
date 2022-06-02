@@ -69,6 +69,10 @@ function startGame() {
     mainScreenElement.setAttribute("class", "hide");
     scoreLinkElement.setAttribute("class", "inactiveLink");
     questionContainerElement.removeAttribute("class", "hide");
+
+    var initialsInput = document.querySelector("#initials");
+    initialsInput.value = '';
+
     startTimer();
     renderNextQuestion();
 }

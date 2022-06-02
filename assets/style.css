@@ -102,8 +102,8 @@ h2 {
 .inactiveLink {
     pointer-events: none;
     cursor: default;
-};
+}
 
-#high-scores-list li {
-    list-style-type: none;
+#high-scores-list {
+    list-style-type: none !important;
 }
