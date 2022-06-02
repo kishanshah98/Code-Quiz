@@ -10,11 +10,9 @@ function populateHighScoreList() {
         data.sort(function (a, b) {
             return b.highscore - a.highscore;
         });
-        console.log(data);
         for (var i = 0; i < data.length; i++) {
             var liEl = document.createElement("li");
             liEl.textContent = "Inititals: " + data[i].initials + "     Score: " + data[i].highscore;
-            // liEl.setAttribute("class", "list-style-type: none");
             highScoreListEl.append(liEl);
         }
     }
@@ -28,5 +26,6 @@ function clearScores() {
     window.location.reload();
 }
 
+// Starts clearScores function when the Clear button is clicked
 clearButton.addEventListener("click", clearScores);
 

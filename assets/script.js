@@ -97,35 +97,25 @@ function checkAnswer() {
         answerResponseElement.textContent = "Great job! That is the correct answer!";
         scoreCount += 1;
         qIndex++;
-        console.log("Index number: " + qIndex);
-        console.log("Score: " + scoreCount);
     } else {
         answerResponseElement.textContent = "Oops, that's the wrong answer";
         secondsLeft = secondsLeft - 10;
         qIndex++;
-        console.log("Index number: " + qIndex);
-        console.log("Score: " + scoreCount);
     }
     if (qIndex < questions.length) {
         renderNextQuestion();
-        console.log("qIndex: " + qIndex);
-        console.log("question length: " + questions.length);
     } else {
         gameOver();
-        console.log("Game Over");
     }
 }
 
 // Displays game over page and hides questions
 function gameOver() {
     questionContainerElement.setAttribute("class", "hide");
-
     var gameOverElement = document.querySelector(".game-over-screen");
     gameOverElement.removeAttribute("class", "hide");
-
     var finalScoreEl = document.querySelector("#final-score");
     finalScoreEl.textContent = scoreCount;
-
     scoreLinkElement.removeAttribute("class", "inactiveLink");
 }
 
@@ -148,7 +138,6 @@ function setHighScore() {
 
 // Renders through all the questions
 function renderNextQuestion() {
-    console.log(questions[qIndex]);
     questionElement.textContent = questions[qIndex].text;
     var option1El = document.querySelector("#option1");
     var option2El = document.querySelector("#option2");

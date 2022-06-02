@@ -1,7 +1,9 @@
+/* Centers entire page */
 * {
     text-align: center;
 }
 
+/* Display properties for the header */
 header {
     display: flex;
     flex-wrap: wrap;
@@ -15,6 +17,7 @@ header {
     padding: 0;
 }
 
+/* Flex properties on main screen */
 .main-screen {
     display: flex;
     flex-wrap: wrap;
@@ -99,11 +102,13 @@ h2 {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+/* Disables being able to click High Scores link on main screen once quiz begins */
 .inactiveLink {
     pointer-events: none;
     cursor: default;
 }
 
+/* Gets rid of bullet points in highscore list */
 #high-scores-list {
-    list-style-type: none !important;
+    list-style-type: none;
 }
