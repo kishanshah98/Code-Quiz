@@ -63,16 +63,7 @@ var questions = [
     }
 ];
 
-// Calls init function
-// init();
-
-// The first function being called to collect initial data for previous high scores
-// function init() {
-//     //getHighScores();
-// }
-
-
-
+// Starts game
 function startGame() {
     secondsLeft = 50;
     mainScreenElement.setAttribute("class", "hide");
@@ -121,6 +112,7 @@ function checkAnswer() {
     }
 }
 
+// Displays game over page and hides questions
 function gameOver() {
     questionContainerElement.setAttribute("class", "hide");
 
@@ -150,7 +142,7 @@ function setHighScore() {
     window.location.href = "./highscore.html";
 }   
 
-
+// Renders through all the questions
 function renderNextQuestion() {
     console.log(questions[qIndex]);
     questionElement.textContent = questions[qIndex].text;
@@ -168,9 +160,8 @@ function renderNextQuestion() {
     option4El.addEventListener("click", checkAnswer);
 }
 
+// Triggered when user presses the submit button on the game over page
 submitButton.addEventListener("click", setHighScore);
-
-// clearButton.addEventListener("click", clearScores);
 
 // Triggered when user presses the start button
 startButton.addEventListener("click", startGame);
